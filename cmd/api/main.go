@@ -31,7 +31,7 @@ func main() {
 	var database *tools.DatabaseInterface
 	database, err = tools.NewDatabase()
 	if err != nil {
-		api.InternalErrorHandler(w)
+		api.RequestErrorHandler(w)
 		return
 	}
 
