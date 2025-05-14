@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/botirovs03/goapi/internal/handlers"
 	"github.com/go-chi/chi"
-	"github.com/botirovs03/goapi/internal/handelers"]
 	log "github.com/sirupsen/logrus"
 )
 
@@ -23,27 +23,6 @@ func main() {
 	err := http.ListenAndServe("localhost:8080", r)
 
 	if err != nil {
-		log.Error(UnAuthorizedError)
-		api.RequestErrorHandler(w, UnAuthorizedError)
-		return
+		log.Error(err)
 	}
-
-	var database *tools.DatabaseInterface
-	database, err = tools.NewDatabase()
-	if err != nil {
-		api.RequestErrorHandler(w)
-		return
-	}
-
-	var loginDetails *tools.LoginDetails
-	loginDetails = (*database).GetUserLoginDetails(username)
-
-	if (loginDetails == nil || token != (*loginDetails).AuthToken) {
-		log.Error(UnAuthorizedError)
-		api.RequestErrorHandler(w, UnAuthorizedError)
-		return
-		
-	}
-
-	 next.ServeHTTP(w, r)
 }

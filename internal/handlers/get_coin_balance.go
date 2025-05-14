@@ -18,13 +18,15 @@ func GetCoinBalance(w http.ResponseWriter, r *http.Request) {
 	err = decoder.Decode(&params, r.URL.Query())
 	if err != nil {
 		log.Error(err)
-		api.RequestErrorHandler(w)
+		api.InternalErrorHandler(w)
 		return
+
 	}
 
 	var database *tools.DatabaseInterface
 	database, err = tools.NewDatabase()
 	if err != nil {
+		log.Error(err)
 		api.InternalErrorHandler(w)
 		return
 	}
